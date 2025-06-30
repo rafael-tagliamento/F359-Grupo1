@@ -47,13 +47,15 @@ if __name__ == "__main__":
     # Solicitar D e A ao usuário
     while True:
         try:
-            D = float(input("Digite o valor de D em cm²/s (ex: 0.0045): "))
-            if D <= 0:
-                print("D deve ser um valor positivo. Tente novamente.")
+            T = float(input("Digite o valor de T em °C (20): "))
+            D = np.exp(-3.1e4 / (8.314 * (T + 273.15))) * 6e2  # cm²/s, usando a equação de Arrhenius
+            if T <= -273.15:
+                print("Temperatura deve ser um valor acima do zero absoluto. Tente novamente.")
             else:
                 break
         except ValueError:
-            print("Entrada inválida. Por favor, digite um número para D.")
+            print("Entrada inválida. Por favor, digite um número para T.")
+        
 
     while True:
         try:
