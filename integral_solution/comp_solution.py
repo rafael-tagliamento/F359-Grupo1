@@ -43,21 +43,40 @@ if __name__ == "__main__":
     
     # --- PARÂMETROS DA SIMULAÇÃO ---
     C_0 = 1.0
-    D = 0.0045
-    A = 0.5
+    
+    # Solicitar D e A ao usuário
+    while True:
+        try:
+            D = float(input("Digite o valor de D em cm²/s (ex: 0.0045): "))
+            if D <= 0:
+                print("D deve ser um valor positivo. Tente novamente.")
+            else:
+                break
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número para D.")
+
+    while True:
+        try:
+            A = float(input("Digite o valor de A em cm (ex: 0.5): "))
+            if A <= 0:
+                print("A deve ser um valor positivo. Tente novamente.")
+            else:
+                break
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número para A.")
     
     # --- CONFIGURAÇÕES DO GRÁFICO ---
     tempos_para_plotar = [0.1, 5, 10, 20, 50, 180]
     r_valores = np.linspace(0, 4, 200)
 
     # --- CÁLCULO E PLOTAGEM ---
-    print("Iniciando cálculo para a geração dos gráficos...")
+    print("\nIniciando cálculo para a geração dos gráficos...")
     
     plt.style.use('seaborn-v0_8-whitegrid')
     fig, ax = plt.subplots(figsize=(12, 7))
 
     for t_atual in tempos_para_plotar:
-        print(f"Calculando perfil de concentração para t = {t_atual}...")
+        print(f"Calculando perfil de concentração para t = {t_atual}s...")
         concentracoes_calculadas = [calcular_concentracao(C_0, D, A, r, t_atual) for r in r_valores]
         ax.plot(r_valores, concentracoes_calculadas, label=f't = {t_atual} s')
 
